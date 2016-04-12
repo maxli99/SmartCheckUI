@@ -1,0 +1,96 @@
+/* for media detect */
+@-ms-viewport       { width: device-width;  }
+@-webkit-viewport   { width: device-width;  }
+@-moz-viewport      { width: device-width;  }
+@-ms-viewport       { width: device-width;  }
+@-o-viewport        { width: device-width;  }
+@viewport           { width: device-width;  }
+/* --end */
+
+/* for body part */
+body {
+    font-family:"ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+
+    color:#2C3E50;
+}
+
+.container {
+    padding:0 15px;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
+    font-family:"ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+}
+/* --end */
+
+/* for footer part */
+.content-footer {
+    text-align:center;
+    border-top:2px solid #D5D5D5;
+    background-color:#124191;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    bottom: 0;
+    margin-bottom: 0;
+    border-width: 1px 0 0;
+}
+
+@media (min-width: 768px) {
+  .content-footer{
+    border-radius: 0;
+  }
+}
+
+.content-footer p {
+    color:#FFFFFF;
+    font-style:italic;
+}
+
+.nav-header.collapsed > span.glyphicon-chevron-toggle:before {
+    content: "\e114";
+}
+
+.nav-header > span.glyphicon-chevron-toggle:before {
+    content: "\e113";
+}
+
+.secondmenu a {
+    font-size: 12px;
+    color: #4A515B;
+    text-align: center;
+}
+
+.secondmenu li.active {
+    background-color: #eee;
+    border-color: #428bca;
+}
+
+/* --end */
+
+/* for result module */
+.ss_result {
+    margin-top:50px;
+}
+/* --end */
+
+#scrollUp {
+    background: url("../img/top.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: 20px;
+    height: 38px;
+    right: 20px;
+    width: 38px;
+}
+#tips {
+    animation-delay: 3s
+}
+th, td {
+    text-align: center
+}
+.vertical-center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}

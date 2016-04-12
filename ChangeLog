@@ -1,0 +1,9 @@
+# V 1.0.1
+## 1. Fix an issue that cannot download the subscriber trace
+
+# V 1.0.0
+## 1. This is the initial version of the FMA-Portal project.
+## 2. Basic featues:
+### 2.1 configuration of MME and FMA used in this tool
+### 2.2 FMA selection
+### 2.3 MME auto connection
