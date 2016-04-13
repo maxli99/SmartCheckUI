@@ -1,7 +1,10 @@
 <div class="jsloader">
     <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/bootstrap/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='lib/angularjs/angular.min.js') }}"></script>
+    <!--script type="text/javascript" src="{{ url_for('static', filename='lib/angularjs/angular.min.js') }}"></script-->
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/vuejs/vue.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/vuejs/vue-resource.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/vuejs/vue-validator.min.js') }}"></script>
 
     <script src="{{ url_for('static', filename='js/common.js') }}"></script>
     {% for jsmodule in jsmodules %}

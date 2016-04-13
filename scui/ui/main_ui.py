@@ -46,6 +46,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(20)
         sizePolicy.setHeightForWidth(self.webView.sizePolicy().hasHeightForWidth())
         self.webView.setSizePolicy(sizePolicy)
+        self.webView.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.webView.setAutoFillBackground(True)
         self.webView.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.webView.setObjectName(_fromUtf8("webView"))

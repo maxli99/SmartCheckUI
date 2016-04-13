@@ -12,10 +12,6 @@ $(function () {
 
 });
 
-//common angularjs start
-var app = angular.module('scui', []);
-
-app.config(['$interpolateProvider', function($interpolateProvider) {
-  $interpolateProvider.startSymbol('{[');
-  $interpolateProvider.endSymbol(']}');
-}]);
+Vue.config.delimiters = ['{[', ']}'];
+Vue.config.unsafeDelimiters = ['{[[', ']]}'];
+Vue.config.debug = true;

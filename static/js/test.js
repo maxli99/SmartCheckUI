@@ -1,20 +1,27 @@
-app.controller('test', function($scope, $http) {
-    $scope.hidden_pannel = true;
-    $scope.form_disabled = false;
-    $scope.submit_button = 'Test';
-    $scope.formData = {};
-    $scope.process_form = function() {
-        $scope.form_disabled = true;
-        $scope.submit_button = '<i class="icon-spinner icon-spin"></i>';
-        $http({
-            method : 'POST',
-            data : $scope.formData,
-        }).success(function(data) {
-            $scope.result_data = data;
-            $scope.hidden_pannel = false;
-            $scope.form_disabled = false;
-            $scope.submit_button = 'Test';
-        });
-    };
-});
-
+new Vue({
+    el: ".scui_test",
+    data: {
+        result_panel: false,
+        result_data: "",
+        formdata: {conntype: "SSH"},
+        loading: false,
+    },
+    methods: {
+        submit_form: function(msg, event) {
+            this.result_panel = false;
+            this.loading = true;
+            this.$http({
+                data: this.formdata,
+                method: 'POST',
+            }).then(function (response) {
+                // success callback
+                this.result_data = response.data;
+                this.result_panel = true;
+                this.loading = false;
+            }, function (response) {
+                this.loading = false;
+            });
+            return false;
+        }
+    }
+})
