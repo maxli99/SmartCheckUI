@@ -8,20 +8,17 @@ new Vue({
     },
     methods: {
         submit_form: function(msg, event) {
+            var self = this;
             this.result_panel = false;
             this.loading = true;
-            this.$http({
-                data: this.formdata,
-                method: 'POST',
-            }).then(function (response) {
-                // success callback
-                this.result_data = response.data;
-                this.result_panel = true;
-                this.loading = false;
-            }, function (response) {
-                this.loading = false;
-            });
-            return false;
-        }
+            $.post('/test/',
+                JSON.stringify(self.$data.formdata),
+                function (msg) {
+                    self.$data.result_data = msg.response;
+                    self.$data.result_panel = true;
+                    self.$data.loading = false;
+                }
+            );
+        },
     }
 })

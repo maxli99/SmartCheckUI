@@ -24,12 +24,20 @@ def execute(scope, command):
     @type  command: string
     @param command: A shell command.
     """
+
+    import subprocess
+    startupinfo = subprocess.STARTUPINFO()
+    if 'win32' in str(sys.platform).lower():
+        startupinfo.dwFlags = subprocess.CREATE_NEW_CONSOLE | subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = subprocess.SW_HIDE
+
     process = Popen(command[0],
                     shell     = True,
                     stdin     = PIPE,
                     stdout    = PIPE,
                     stderr    = STDOUT,
-                    close_fds = True)
+                    close_fds = True,
+                    startupinfo = startupinfo)
     scope.define(__response__ = process.stdout.read())
     return True
 

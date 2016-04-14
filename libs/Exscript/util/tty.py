@@ -20,6 +20,7 @@ import sys
 import struct
 from subprocess import Popen, PIPE
 
+
 def _get_terminal_size(fd):
     try:
         import fcntl
@@ -96,7 +97,12 @@ def get_terminal_size(default_rows = 25, default_cols = 80):
     # Try `stty size`
     devnull = open(os.devnull, 'w')
     try:
-        process = Popen(['stty', 'size'], stderr = devnull, stdout = PIPE)
+        import subprocess
+        startupinfo = subprocess.STARTUPINFO()
+        if 'win32' in str(sys.platform).lower():
+            startupinfo.dwFlags = subprocess.CREATE_NEW_CONSOLE | subprocess.STARTF_USESHOWWINDOW
+            startupinfo.wShowWindow = subprocess.SW_HIDE
+        process = Popen(['stty', 'size'], stderr = devnull, stdout = PIPE, startupinfo=startupinfo)
     except OSError:
         pass
     else:

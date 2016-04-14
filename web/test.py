@@ -2,7 +2,7 @@
 
 import json
 
-from flask import Blueprint, abort, request
+from flask import Blueprint, abort, request, jsonify
 from jinja2 import TemplateNotFound
 
 from Exscript import Account
@@ -13,18 +13,19 @@ test = Blueprint('test', __name__,
                     template_folder='templates')
 
 jsmodules = ['test']
+styles = ['']
 
 @test.route('/', methods = ['GET'])
 def index():
     try:
-        return render('test.html', jsmodules=jsmodules)
+        return render('unofficial/test.html', jsmodules=jsmodules)
     except TemplateNotFound:
         abort(404)
 
 @test.route('/', methods = ['POST'])
 def get_result():
     try:
-        data = json.loads(request.data.decode('utf-8'))
+        data = request.get_json(True)
         address = data['host']
         account = Account(name=data['user'], password=data['passwd'])
 
@@ -39,11 +40,17 @@ def get_result():
         conn.connect(address)
         conn.login(account)
         conn.execute(data['command'])
-        response = repr(conn.response)
+
+        response = str(conn.response)
+
+        from ansi2html import Ansi2HTMLConverter
+        from html2text import HTML2Text
+        conv = Ansi2HTMLConverter()
+        h2t = HTML2Text()
+        response = h2t.handle(conv.convert(response))
+
         conn.send('exit\n')
         conn.close()
-        return response
+        return jsonify(success=True, response=response)
     except Exception as e:
-        print(e)
-        return "Opus! Some guy poisoned my coffee last night! I'm 狗'in 带!!"
-    return response
+        return jsonify(success=False, response="Opus! Some guy poisoned my coffee last night!")

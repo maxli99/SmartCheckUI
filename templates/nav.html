@@ -1,1 +1,47 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><strong>Nokia</strong></a>
+    </div>
 
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav">
+          {% for item in nav %}
+              {% if not item.hidden %}
+                  {% if item.sub is defined %}
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                              <i class="icon-large icon-{{ item.icon }}"></i> {{ item.name }} <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu">
+                              {% for subitem in item.sub %}
+                                  {% if not subitem.hidden %}
+                                      <li>
+                                          <a href="{{ subitem.link }}">
+                                          <i class="icon-{{ subitem.icon }}"></i>&nbsp;&nbsp;{{ subitem.name }}
+                                          </a>
+                                      </li>
+                                  {% endif %}
+                              {% endfor %}
+                          </ul>
+                      </li>
+                  {% else %}
+                     <li><a href="{{ item.link }}"><i class="icon-large icon-{{ item.icon }}"></i> {{ item.name }}</a></li>
+                  {% endif %}
+              {% endif %}
+            {% endfor %}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li><a role="button" href="/setting"><i class="icon-large icon-cog"></i></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

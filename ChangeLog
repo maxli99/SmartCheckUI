@@ -1,9 +1,15 @@
-# V 1.0.1
-## 1. Fix an issue that cannot download the subscriber trace
+# V 0.0.3
 
-# V 1.0.0
-## 1. This is the initial version of the FMA-Portal project.
-## 2. Basic featues:
-### 2.1 configuration of MME and FMA used in this tool
-### 2.2 FMA selection
-### 2.3 MME auto connection
++ menu added
++ add js and css lib- bottons, scrollup, pnotify, sweetalert and switch
++ translate ansi color text to plain text
++ move the initial globals to json config file to avoid hard coding
+
+# V 0.0.2
+
++ replace angularjs with vuejs
+
+# V 0.0.1
+
++ basic framework pyqt+flask+bootstrap+angularjs
++ test page

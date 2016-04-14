@@ -10,8 +10,15 @@ $(function () {
             appendChild(msViewportStyle);
     }
 
+    // For scrollUp
+    $.scrollUp({
+        animation: 'fade',
+        scrollDistance: 100,
+        scrollImg: true
+    });
 });
 
+//for vuejs
 Vue.config.delimiters = ['{[', ']}'];
 Vue.config.unsafeDelimiters = ['{[[', ']]}'];
 Vue.config.debug = true;

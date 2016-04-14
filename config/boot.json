@@ -1,0 +1,9 @@
+{
+  "local_address": "127.0.0.1",
+  "local_port": 61003,
+  "service_port": 5001,
+  "max_wait_for_webserver_retry": 3,
+  "app_name": "Smart Check UI",
+  //please set the debug to false if you want to use the UI program
+  "debug": false
+}
