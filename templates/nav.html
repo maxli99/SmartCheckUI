@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top scui-nav">
       <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -40,7 +40,12 @@
             {% endfor %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          <li><a role="button" href="/setting"><i class="icon-large icon-cog"></i></a></li>
+          {% if config_blink %}
+              <li><a role="button" href="/setting"><i class="icon-large icon-cog button-glow"></i></a></li>
+          {% else %}
+              <li><a role="button" href="/setting"><i class="icon-large icon-cog"></i></a></li>
+          {% endif %}
+          <li><a role="button" href="/setting" v-on:click.prevent="show_information"><i class="icon-large icon-info"></i></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

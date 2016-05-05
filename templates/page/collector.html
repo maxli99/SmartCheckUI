@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="scui_collector">
+        <div class="wizard" data-initialize="wizard">
+            <div class="steps-container">
+                <ul class="steps">
+                    <li data-step="1" data-name="campaign" class="active">
+                        <span class="badge">1</span>选择项目
+                        <span class="chevron"></span>
+                    </li>
+                    <li data-step="2">
+                        <span class="badge">2</span>选择网元
+                        <span class="chevron"></span>
+                    </li>
+                    <li data-step="3" data-name="template">
+                        <span class="badge">3</span>项目检查
+                        <span class="chevron"></span>
+                    </li>
+                    <li data-step="4" data-name="template">
+                        <span class="badge">4</span>结果处理
+                        <span class="chevron"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="actions">
+                <button type="button" class="btn btn-default btn-prev">
+                    <span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+                <button type="button" class="btn btn-primary btn-next" data-last="Complete">Next
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </div>
+            <div class="step-content">
+                <div class="step-pane active sample-pane alert" data-step="1">
+                    <h4>选择检查项目</h4>
+                    <table id="grid-check-item" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="id" data-identifier="true">标识</th>
+                                <th data-column-id="name">名称</th>
+                                <th data-column-id="type">类型</th>
+                                <th data-column-id="view" data-formatter="view">查看</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="modal fade" v-el:view_modal>
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">模块详情</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <dl class="dl-horizontal">
+                                        <dt>模块名称</dt>
+                                        <dd>{[ item_view.name ]}</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>模块类型</dt>
+                                        <dd>{[ item_view.type ]}</dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>模块描述</dt>
+                                        <dd><pre>{[ item_view.desc ]}</pre></dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>触发条件</dt>
+                                        <dd><pre>{[ item_view.cond ]}</pre></dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>收集指令</dt>
+                                        <dd><pre>{[ item_view.oper ]}</pre></dd>
+                                    </dl>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
+                <div class="step-pane sample-pane alert" data-step="2">
+                    <h4>选择网元</h4>
+                    <table id="grid-ne" class="table table-condensed table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th data-column-id="id"  data-type="numeric" data-order="asc" data-identifier="true">序号</th>
+                            <th data-column-id="name">网元名称</th>
+                            <th data-column-id="type">网元类型</th>
+                            <th data-column-id="address">IP地址</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="step-pane sample-pane alert" data-step="3">
+                    <h4>项目检查</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">MME检查项目</div>
+                        <div class="panel-body">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#MME-item-collapse" aria-expanded="false" aria-controls="collapseExample">
+                                MME检查项目<span class="badge">{[ mme_check_item_num ]}</span>
+                            </button>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#MME-ne-collapse" aria-expanded="false" aria-controls="collapseExample">
+                                MME设备<span class="badge">{[ mme_check_ne_num ]}</span>
+                            </button>
+                            <div class="collapse" id="MME-item-collapse">
+                                <div class="well">
+                                    <pre>{[ mme_check_item ]}</pre>
+                                </div>
+                            </div>
+                            <div class="collapse" id="MME-ne-collapse">
+                                <div class="well">
+                                    <pre>{[ mme_check_ne ]}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">SAEGW检查项目</div>
+                        <div class="panel-body">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#SAEGW-item-collapse" aria-expanded="false" aria-controls="collapseExample">
+                                SAEGW检查项目<span class="badge">{[ saegw_check_item_num ]}</span>
+                            </button>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#SAEGW-ne-collapse" aria-expanded="false" aria-controls="collapseExample">
+                                SAEGW设备<span class="badge">{[ saegw_check_ne_num ]}</span>
+                            </button>
+                            <div class="collapse" id="SAEGW-item-collapse">
+                                <div class="well">
+                                    <pre>{[ saegw_check_item ]}</pre>
+                                </div>
+                            </div>
+                            <div class="collapse" id="SAEGW-ne-collapse">
+                                <div class="well">
+                                    <pre>{[ saegw_check_ne ]}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step-pane sample-pane alert" data-step="4">
+                    <h4>结果处理</h4>
+                    <span v-show="loading">
+                        <div class="spinner">
+                            <div class="spinner-container container1">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <div class="spinner-container container2">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <div class="spinner-container container3">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="panel-group" role="tablist" aria-multiselectable="true" id="result_greoup" v-show="!loading">
+                        <div class="panel panel-default" v-for="result in check_result">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#result_group" href="#collapse-{[result.id]}">
+                                        {[ result.name ]}
+                                    </a>
+                                    <span v-if="result.success" class="pull-right label label-success">正常</span>
+                                    <span v-else class="pull-right label label-danger">异常</span>
+                                </h4>
+                            </div>
+                            <div id="collapse-{[result.id]}" class="panel-collapse collapse out" role="tabpanel">
+                                <div class="panel-body">
+                                    <pre>{[ result.log ]}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pull-right">
+                        <button type="button" :class="{'btn btn-primary' : mail_unsend, 'btn btn-success' : send_success, 'btn btn-danger' : send_failed}" @click="sendmail" :disabled="!mail_unsend">
+                            <span v-show="mail_sending">
+                                <div class="spinner">
+                                    <div class="spinner-container container1">
+                                        <div class="circle1"></div>
+                                        <div class="circle2"></div>
+                                        <div class="circle3"></div>
+                                        <div class="circle4"></div>
+                                    </div>
+                                    <div class="spinner-container container2">
+                                        <div class="circle1"></div>
+                                        <div class="circle2"></div>
+                                        <div class="circle3"></div>
+                                        <div class="circle4"></div>
+                                    </div>
+                                    <div class="spinner-container container3">
+                                        <div class="circle1"></div>
+                                        <div class="circle2"></div>
+                                        <div class="circle3"></div>
+                                        <div class="circle4"></div>
+                                    </div>
+                                </div>
+                            </span>
+                            <span v-else>{[ send_text ]}</span>
+                        </button>
+                        <button type="button" class="btn btn-primary" @click="downloadlog">
+                            下载
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

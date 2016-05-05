@@ -1,8 +1,14 @@
 {
-  local_address: "127.0.0.1",
-  local_port: 61003
-  service_port: 5001
-  max_wait_for_webserver_retry: 3
-  app_name: "Smart Check UI"
-  debug: false
+  "local_address": "127.0.0.1",
+  "local_port": 61003,
+  "service_port": 5001,
+  "max_wait_for_webserver_retry": 3,
+  "app_name": "Smart Check UI",
+  "db_url": "sqlite:///./config/config.db",
+  "log": true,
+  "log_file": "scui.log",
+  "log_level": "error",
+  "mail_subject": "网元日志检查",
+  "mail_to": "sebastien99@126.com",
+  "debug": false
 }

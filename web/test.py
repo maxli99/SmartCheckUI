@@ -7,6 +7,8 @@ from jinja2 import TemplateNotFound
 
 from Exscript import Account
 
+from ansiconv import to_plain
+
 from web.widget.render import render
 
 test = Blueprint('test', __name__,
@@ -41,13 +43,7 @@ def get_result():
         conn.login(account)
         conn.execute(data['command'])
 
-        response = str(conn.response)
-
-        from ansi2html import Ansi2HTMLConverter
-        from html2text import HTML2Text
-        conv = Ansi2HTMLConverter()
-        h2t = HTML2Text()
-        response = h2t.handle(conv.convert(response))
+        response = to_plain(str(conn.response))
 
         conn.send('exit\n')
         conn.close()

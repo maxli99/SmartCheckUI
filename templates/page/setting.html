@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="scui_setting">
+        <form novalidate class="form-horizontal" action="{{ url_for("setting.index") }}" method="post">
+            <div class="form-group control-group" >
+                <label for="project" class="col-sm-2 control-label">项目名称</label>
+                <div class="col-sm-10 controls">
+                    <input name="project" type="text" class="form-control" placeholder="请输入项目名称" value="{{ project }}" required>
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group control-group">
+                <label for="email" class="col-sm-2 control-label">电子信箱</label>
+                <div class="col-sm-10 controls">
+                    <input name="email" class="form-control" type="email" placeholder="请输入您正确的邮箱地址,用于接收日志检查结果" value="{{ email }}" required>
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="button button-primary button-border button-rounded">确定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

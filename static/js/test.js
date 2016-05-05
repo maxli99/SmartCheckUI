@@ -1,5 +1,5 @@
 new Vue({
-    el: ".scui_test",
+    el: ".scui-test",
     data: {
         result_panel: false,
         result_data: "",
@@ -8,15 +8,18 @@ new Vue({
     },
     methods: {
         submit_form: function(msg, event) {
-            var self = this;
+            if ($("input,select,textarea").not("[type=submit]").jqBootstrapValidation("hasErrors")) {
+                return;
+            }
+            var self = this.$data;
             this.result_panel = false;
             this.loading = true;
-            $.post('/test/',
-                JSON.stringify(self.$data.formdata),
+            $.post(SCRIPT_ROOT,
+                JSON.stringify(self.formdata),
                 function (msg) {
-                    self.$data.result_data = msg.response;
-                    self.$data.result_panel = true;
-                    self.$data.loading = false;
+                    self.result_data = msg.response;
+                    self.result_panel = true;
+                    self.loading = false;
                 }
             );
         },

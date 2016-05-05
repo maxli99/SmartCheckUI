@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+#this is a trick to let the pyqt and flask work well
+#please do not change anything unless u know what u'r donging
+from utils.sc_globals import sc_globals, sc_globals_editable
+sc_globals_editable.QT_CLIENT = True
+from bootstrap import initialize
+initialize()
+import webprocess
+#end
+
 import sys
 import threading
 import socket
@@ -9,15 +18,14 @@ import time
 from PyQt4 import QtGui
 
 from scui.biz import main_window
-from webprocess import app as webapp
-from utils.sc_globals import sc_globals
 
 class WebProcess(threading.Thread):
     def __init__(self):
         super(WebProcess, self).__init__()
 
     def run(self):
-        webapp.run(host=sc_globals.LOCAL_ADDRESS, port=sc_globals.LOCAL_PORT)
+        #sc_globals.APP.run(host=sc_globals.LOCAL_ADDRESS, port=sc_globals.LOCAL_PORT)
+        sc_globals.APP.run(host="0.0.0.0", port=sc_globals.LOCAL_PORT)
 
     def is_initiated(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

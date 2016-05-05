@@ -1,1 +1,13 @@
-<!-- span>We do not need the header space, because the navbar is in the head<span -->
+<div class="header">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {% if message %}
+                <div class="row flash-success"> </div>
+                {% else %}
+                <div class="row flash-failed"> </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>

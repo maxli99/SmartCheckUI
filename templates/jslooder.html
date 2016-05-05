@@ -1,20 +1,22 @@
 <div class="jsloader">
     <script type=text/javascript>
-      var SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        var SCRIPT_ROOT = {{ request.base_url|tojson|safe }};
     </script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/bootstrap/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/fuelux/fuelux.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/jqBootstrapValidation/jqBootstrapValidation.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/bootgrid/jquery.bootgrid.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/vuejs/vue.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='lib/vuejs/vue-resource.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='lib/vuejs/vue-validator.min.js') }}"></script>
-    <!--script-- type="text/javascript" src="{{ url_for('static', filename='lib/angularjs/angular.min.js') }}"></script-->
     <script type="text/javascript" src="{{ url_for('static', filename='lib/scrollup/scrollup.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/switch/switch.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='lib/buttons/buttons.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/sweetalert/sweetalert.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='lib/pnotify/pnotify.min.js') }}"></script>
 
     <script src="{{ url_for('static', filename='js/common.js') }}"></script>
     {% for jsmodule in jsmodules %}
-        <script src="{{ url_for('static', filename='js/'+jsmodule+'.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/'+jsmodule+'.js') }}" charset="utf-8"></script>
     {% endfor %}
 
     <!-- inline scripts related to this page -->

@@ -78,6 +78,8 @@ class Telnet(Protocol):
         if match:
             self._dbg(2, "Got a prompt, match was %s" % repr(match.group()))
             self.buffer.pop(len(self.response))
+            # to fix a shit bug that the telnet response is not the truely msg
+            self.response = self.response[0:-1]+match.group()
 
         self._dbg(5, "Response was %s" % repr(self.response))
 

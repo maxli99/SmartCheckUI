@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="scui-ne">
+        <table id="grid-data" class="table table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th data-column-id="id" data-type="numeric" data-order="asc">序号</th>
+                    <th data-column-id="name">网元名称</th>
+                    <th data-column-id="type">网元类型</th>
+                    <th data-column-id="conntype">连接方式</th>
+                    <th data-column-id="address">IP地址</th>
+                    <th data-column-id="port">端口</th>
+                    <th data-column-id="user">用户名</th>
+                    <th data-column-id="commands" data-formatter="commands" data-sortable="false">操作</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="modal fade" data-backdrop="static" role="dialog" v-el:modal>
+            <div class="modal-dialog" rold="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" :disabled="loading" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">{[ opertype ]}</h4>
+                    </div>
+                    <form novalidate class="form-horizontal" action="{[ operation ]}" method="post">
+                    <div class="modal-body">
+                            <input id="config_id" name="id" style="display: none;" type="text" class="form-control" v-model="formdata.id" >
+                            <div class="form-group control-group">
+                                <label for="test_host" class="col-sm-2 control-label">网元名称</label>
+                                <div class="col-sm-10 controls">
+                                    <input id="config_name" name="name" required type="text" class="form-control" placeholder="请输入网元名称" v-model="formdata.name" >
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="form-group control-group">
+                                <label for="test_host" class="col-sm-2 control-label">IP地址</label>
+                                <div class="col-sm-10 controls">
+                                    <input id="config_host" required name="host" type="text" class="form-control" placeholder="请输入IP地址" v-model="formdata.host" >
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="form-group control-group">
+                                <label for="test_host" class="col-sm-2 control-label">端口号</label>
+                                <div class="col-sm-10 controls">
+                                    <input type="number" class="form-control" name="port" placeholder="请输入端口号" required v-model="formdata.port">
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="form-group control-group">
+                                <label for="test_user" class="col-sm-2 control-label">用户名</label>
+                                <div class="col-sm-10 controls">
+                                    <input type="text" class="form-control" name="user" placeholder="请输入用户名" v-model="formdata.user" required="required">
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="form-group control-group">
+                                <label for="test_password" class="col-sm-2 control-label">密码</label>
+                                <div class="col-sm-10 controls">
+                                    <input type="password" class="form-control" name="passwd" placeholder="请输入登陆密码" v-model="formdata.passwd" required="required">
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="test_type" class="col-sm-2 control-label">网元类型</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="type" v-model="formdata.type" required="required">
+                                        <option>MME</option>
+                                        <option>SAEGW</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="test_type" class="col-sm-2 control-label">连接方式</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="conntype" v-model="formdata.conntype" required="required">
+                                        <option>Telnet</option>
+                                        <option>SSH</option>
+                                    </select>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" :class="{'btn btn-success': test_ok, 'btn btn-danger': test_failed, 'btn btn-default': untested}" v-on:click="verify_ne">
+                            <span v-show="loading">
+                                <div class="spinner">
+                                    <div class="spinner-container container1">
+                                        <div class="circle1"></div>
+                                        <div class="circle2"></div>
+                                        <div class="circle3"></div>
+                                        <div class="circle4"></div>
+                                    </div>
+                                    <div class="spinner-container container2">
+                                        <div class="circle1"></div>
+                                        <div class="circle2"></div>
+                                        <div class="circle3"></div>
+                                        <div class="circle4"></div>
+                                    </div>
+                                    <div class="spinner-container container3">
+                                        <div class="circle1"></div>
+                                        <div class="circle2"></div>
+                                        <div class="circle3"></div>
+                                        <div class="circle4"></div>
+                                    </div>
+                                </div>
+                            </span>
+                            <span v-else>测试</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

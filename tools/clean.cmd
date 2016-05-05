@@ -5,5 +5,6 @@
 @cd %script_path%\..
 call tools\pre_clean.py .
 del /s /q SmartCheckUI.spec
+del /s /q dist tmp
 del /s /q dist build
 rd /s /q dist build
