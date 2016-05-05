@@ -4,7 +4,7 @@
 @set script_path=%~dp0
 @cd %script_path%\..
 call .\tools\pre_check.py
-call pyinstaller --icon="nokia.ico" --hiddenimport _socket --hiddenimport flask_sqlalchemy  --exclude-module configparser -p libs -y --clean -d -c SmartCheckUI.py
+call pyinstaller --icon="nokia.ico" --hiddenimport _socket --hiddenimport flask_sqlalchemy  --exclude-module configparser -p libs -y --clean -w SmartCheckUI.py
 
 del /s /q config\config.db
 call .\tools\dbinit.py
