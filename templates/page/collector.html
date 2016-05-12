@@ -13,7 +13,7 @@
                         <span class="chevron"></span>
                     </li>
                     <li data-step="3" data-name="template">
-                        <span class="badge">3</span>项目检查
+                        <span class="badge">3</span>预处理
                         <span class="chevron"></span>
                     </li>
                     <li data-step="4" data-name="template">
@@ -43,7 +43,7 @@
                         </thead>
                     </table>
                     <div class="modal fade" v-el:view_modal>
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -89,45 +89,70 @@
                     </table>
                 </div>
                 <div class="step-pane sample-pane alert" data-step="3">
-                    <h4>项目检查</h4>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">MME检查项目</div>
-                        <div class="panel-body">
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#MME-item-collapse" aria-expanded="false" aria-controls="collapseExample">
-                                MME检查项目<span class="badge">{[ mme_check_item_num ]}</span>
-                            </button>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#MME-ne-collapse" aria-expanded="false" aria-controls="collapseExample">
-                                MME设备<span class="badge">{[ mme_check_ne_num ]}</span>
-                            </button>
-                            <div class="collapse" id="MME-item-collapse">
-                                <div class="well">
-                                    <pre>{[ mme_check_item ]}</pre>
-                                </div>
-                            </div>
-                            <div class="collapse" id="MME-ne-collapse">
-                                <div class="well">
-                                    <pre>{[ mme_check_ne ]}</pre>
+                    <h4>预处理</h4>
+                    <ul class="nav nav-pills" role="tablist">
+                        <li role="presentation"><a href="#MME-cmd" role="tab" data-toggle="tab">MME检查命令<span class="label label-danger">重要</span></a></li>
+                        <li role="presentation"><a href="#SAEGW-cmd" role="tab" data-toggle="tab">SAEGW<span class="label label-danger">重要</span></a></li>
+                        <li role="presentation"><a href="#MME-item" role="tab" data-toggle="tab">MME检查项目<span class="badge">{[ mme_check_item_num ]}</span></a></li>
+                        <li role="presentation"><a href="#SAEGW-item" role="tab" data-toggle="tab">SAEGW检查项目<span class="badge">{[ saegw_check_item_num ]}</span></a></li>
+                        <li role="presentation"><a href="#MME-ne" role="tab" data-toggle="tab">MME检查网元<span class="badge">{[ mme_check_ne_num ]}</span></a></li>
+                        <li role="presentation"><a href="#SAEGW-ne" role="tab" data-toggle="tab">SAEGW检查网元<span class="badge">{[ saegw_check_ne_num ]}</span></a></li>
+                    </ul>
+                    <div class="tab-content">
+
+
+                        <div class="tab-pane" role="tabpanel" id="MME-cmd">
+                            <div class="panel panel-primary" id="MME-cmd-panel">
+                                <div class="panel-body">
+                                    <div class="command-list">
+                                        <textarea id="mme-cmd-{[$index]}" class="command mme-command" v-for="cmd in mme_check_cmd" track-by="$index" title="{[ cmd[1] ]}">{[ cmd[0] ]}</textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">SAEGW检查项目</div>
-                        <div class="panel-body">
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#SAEGW-item-collapse" aria-expanded="false" aria-controls="collapseExample">
-                                SAEGW检查项目<span class="badge">{[ saegw_check_item_num ]}</span>
-                            </button>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#SAEGW-ne-collapse" aria-expanded="false" aria-controls="collapseExample">
-                                SAEGW设备<span class="badge">{[ saegw_check_ne_num ]}</span>
-                            </button>
-                            <div class="collapse" id="SAEGW-item-collapse">
-                                <div class="well">
-                                    <pre>{[ saegw_check_item ]}</pre>
+                        <div class="tab-pane" role="tabpanel"  id="MME-item">
+                            <div class="panel panel-primary" id="MME-item-panel">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li v-for="item in mme_check_item" track-by="$index">{[ item ]}</li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="collapse" id="SAEGW-ne-collapse">
-                                <div class="well">
-                                    <pre>{[ saegw_check_ne ]}</pre>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="MME-ne">
+                            <div class="panel panel-primary" id="MME-ne-panel">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li v-for="item in mme_check_ne" track-by="$index">{[ item ]}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" role="tabpanel" id="SAEGW-cmd">
+                            <div class="panel panel-primary" id="SAEGW-cmd-panel">
+                                <div class="panel-body">
+                                    <div class="command-list">
+                                        <textarea id="saegw-cmd-{[index]}" class="command saegw-command" v-for="cmd in saegw_check_cmd" track-by="$index" title="{[ cmd[1] ]}">{[ cmd[0] ]}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="SAEGW-item">
+                            <div class="panel panel-primary" id="SAEGW-ne-panel">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li v-for="item in saegw_check_item" track-by="$index">{[ item ]}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="SAEGW-ne">
+                            <div class="panel panel-primary" id="SAEGW-ne-panel">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li v-for="item in saegw_check_ne" track-by="$index">{[ item ]}</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -176,6 +201,12 @@
                         </div>
                     </div>
                     <div class="row pull-right">
+                        <button id="download-mme" type="button" class="btn btn-info" @click="downloadlog('mme')" :disabled="!current_log['mme_log_zip']">
+                            保存MME日志
+                        </button>
+                        <button id="download-saegw" type="button" class="btn btn-info" @click="downloadlog('saegw')" :disabled="!current_log['saegw_log_zip']">
+                            保存SAEGW日志
+                        </button>
                         <button type="button" :class="{'btn btn-primary' : mail_unsend, 'btn btn-success' : send_success, 'btn btn-danger' : send_failed}" @click="sendmail" :disabled="!mail_unsend">
                             <span v-show="mail_sending">
                                 <div class="spinner">
@@ -200,9 +231,6 @@
                                 </div>
                             </span>
                             <span v-else>{[ send_text ]}</span>
-                        </button>
-                        <button type="button" class="btn btn-primary" @click="downloadlog">
-                            下载
                         </button>
                     </div>
                 </div>

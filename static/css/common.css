@@ -119,3 +119,9 @@
   }
 }
 /* end */
+
+/*for CodeMirror*/
+.CodeMirror {
+  border: 0px solid;
+  height: auto;
+}

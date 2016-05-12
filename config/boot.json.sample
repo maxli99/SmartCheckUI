@@ -8,7 +8,8 @@
   "log": true,
   "log_file": "scui.log",
   "log_level": "error",
-  "mail_subject": "网元日志检查",
-  "mail_to": "sebastien99@126.com",
+  "mme_mail_subject": "check_ns_tn.ckl",
+  "saegw_mail_subject": "check_ng_tn.ckl",
+  "mail_to": "smartchecker@163.com",
   "debug": false
 }

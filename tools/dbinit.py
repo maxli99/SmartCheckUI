@@ -15,9 +15,9 @@ db.create_all()
 dao = Dao()
 dao.add(Setting("email", ""))
 dao.add(Setting("project", ""))
-dao.add(Setting("mailuser", "smartcheckerui@163.com"))
+dao.add(Setting("mailuser", "smartcheckerui@sina.com"))
 dao.add(Setting("mailpasswd", "Llysc1S!kr"))
-dao.add(Setting("mailserver", "smtp.163.com"))
+dao.add(Setting("mailserver", "smtp.sina.com"))
 from web.model.ne import db
 db.create_all()
 

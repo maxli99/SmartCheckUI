@@ -15,6 +15,7 @@ class MainWindow(QtGui.QMainWindow):
         super(MainWindow, self).__init__(parent)
         self.ui = main_ui.Ui_MainWindow()
         self.ui.setupUi(self)
+        self.showMaximized()
 
         self.web_page = self.ui.webView.page()
         self.downloader = downloader.Downloader(self, self.web_page.networkAccessManager())

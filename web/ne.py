@@ -50,7 +50,6 @@ def index():
 
 @ne.route('/add', methods=['POST'])
 def add():
-    from pprint import pprint
     if request.method == "POST":
         try:
             name = request.form['name']
@@ -72,7 +71,6 @@ def add():
 
 @ne.route('/edit', methods=['POST'])
 def edit():
-    from pprint import pprint
     if request.method == "POST":
         try:
             dao = Dao()

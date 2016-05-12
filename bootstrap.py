@@ -44,7 +44,8 @@ def initialize():
         sc_globals_editable.DEBUG = boot_config.debug(False)
         sc_globals_editable.DB_URL = boot_config.db_url('sqlite:///./config/config.db')
         sc_globals_editable.MAIL_TO = boot_config.mail_to('')
-        sc_globals_editable.MAIL_SUBJECT = boot_config.mail_subject('')
+        sc_globals_editable.MME_MAIL_SUBJECT = boot_config.mme_mail_subject('')
+        sc_globals_editable.SAEGW_MAIL_SUBJECT = boot_config.saegw_mail_subject('')
         sc_globals_editable.LOG= boot_config.log(True)
         sc_globals_editable.LOG_FILE= boot_config.log_file('scui.log')
         sc_globals_editable.LOG_LEVEL= boot_config.log_level('INFO')
@@ -62,7 +63,8 @@ def initialize():
         sc_globals_editable.DEBUG = False
         sc_globals_editable.DB_URL = 'sqlite:///./config/config.db'
         sc_globals_editable.MAIL_TO = ''
-        sc_globals_editable.MAIL_SUBJECT = ''
+        sc_globals_editable.MME_MAIL_SUBJECT = ''
+        sc_globals_editable.SAEGW_MAIL_SUBJECT = ''
         sc_globals_editable.LOG= True
         sc_globals_editable.LOG_FILE= 'scui.log'
         sc_globals_editable.LOG_LEVEL= 'INFO'

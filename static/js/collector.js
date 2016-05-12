@@ -1,6 +1,7 @@
 var vm = new Vue({
     el: ".scui_collector",
     data: {
+        notshown: false,
         item_map: {},
         ne_map: {},
         item_view: {
@@ -15,19 +16,23 @@ var vm = new Vue({
         mme_check_item: "",
         mme_check_ne_num: 0,
         mme_check_ne: "",
+        mme_check_cmd: [],
         saegw_check_item_num: 0,
         saegw_check_item: "",
         saegw_check_ne_num: 0,
         saegw_check_ne: "",
+        saegw_check_cmd: [],
         check_data: {},
         loading: true,
         check_result: [],
-        current_log: "",
+        current_log: {},
         mail_unsend: true,
         mail_sending: false,
         send_text: "邮件验证",
         send_success: false,
         send_failed: false,
+        mme_editor: [],
+        saegw_editor: []
     },
     methods: {
         downloadlog: function(msg, event) {
@@ -40,7 +45,11 @@ var vm = new Vue({
             var input1 = $('<input>');
             input1.attr('type', 'hidden');
             input1.attr('name', 'filename');
-            input1.attr('value', vm.$data.current_log);
+            if (msg=='mme') {
+                input1.attr('value', vm.$data.current_log['mme_log_zip']);
+            } else if (msg=='saegw') {
+                input1.attr('value', vm.$data.current_log['saegw_log_zip']);
+            }
             $('body').append(form);
             form.append(input1);
             form.submit();
@@ -187,6 +196,17 @@ var grid_ne = $("#grid-ne").bootgrid({
 
 $('.wizard').on('changed.fu.wizard', function (evt, data) {
     if (data["step"] == 3) {
+        for (i = 0; i<vm.$data.mme_editor.length; i++) {
+            vm.$data.mme_editor[i].toTextArea(false);
+        }
+        for (i = 0; i<vm.$data.saegw_editor.length; i++) {
+            vm.$data.saegw_editor[i].toTextArea(false);
+        }
+        vm.$data.mme_check_cmd = [];
+        vm.$data.saegw_check_cmd = [];
+        vm.$data.mme_editor = [];
+        vm.$data.saegw_editor = [];
+
         $.post(SCRIPT_ROOT+"precheck",
             JSON.stringify({"item": vm.$data.item_map, "ne": vm.$data.ne_map}),
             function(msg) {
@@ -195,10 +215,47 @@ $('.wizard').on('changed.fu.wizard', function (evt, data) {
                 vm.$data.mme_check_ne = msg.ne_mme_desc;
                 vm.$data.mme_check_item_num = msg.item_mme.length;
                 vm.$data.mme_check_item = msg.item_mme_desc;
+                vm.mme_check_cmd = vm.mme_check_cmd.concat(msg.item_mme_cmd);
                 vm.$data.saegw_check_ne_num = msg.ne_saegw.length;
                 vm.$data.saegw_check_ne = msg.ne_saegw_desc;
                 vm.$data.saegw_check_item_num = msg.item_saegw.length;
                 vm.$data.saegw_check_item = msg.item_saegw_desc;
+                vm.$data.saegw_check_cmd = msg.item_saegw_cmd;
+                Vue.nextTick(function () {
+                    var cmds = $(".command");
+                    for (i=0; i<cmds.length; i++) {
+                        var editor = CodeMirror.fromTextArea(cmds[i], {
+                            mode: "shell",
+                            theme: "seti",
+                            lineWrapping: true,
+                            lineNumbers: false,
+                            matchBrackets: true,
+                            autoRefresh: true,
+                            delay: 500
+                        });
+                        $(editor.getWrapperElement()).poshytip({
+                            content: $(cmds[i]).attr("title"),
+                            className: 'tip-yellow',
+                            alignTo: 'target',
+                            alignX: 'inner-left',
+                            alignY: 'top',
+                            offsetX: 20,
+                            offsetY: -3,
+                            showOn: 'none',
+                        });
+                        editor.on("focus", function(e) {
+                            $(e.getWrapperElement()).poshytip('show');
+                        });
+                        editor.on("blur", function(e){
+                            $(e.getWrapperElement()).poshytip('hide');
+                        });
+                        if ($(cmds[i]).hasClass("mme-command")) {
+                            vm.$data.mme_editor.push(editor)
+                        } else if ($(cmds[i]).hasClass("saegw-command")) {
+                            vm.$data.saegw_editor.push(editor)
+                        }
+                    }
+                });
             });
     }
     if (data["step"] == 4) {
@@ -208,11 +265,20 @@ $('.wizard').on('changed.fu.wizard', function (evt, data) {
         vm.$data.send_failed = false;
         vm.$data.mail_sending = false;
         vm.$data.send_text = "邮件验证";
+        mme_command = [];
+        saegw_command = [];
+        for (i = 0; i<vm.$data.mme_editor.length; i++) {
+            mme_command.push(vm.$data.mme_editor[i].getValue());
+        }
+        for (i = 0; i<vm.$data.saegw_editor.length; i++) {
+            saegw_command.push(vm.$data.saegw_editor[i].getValue());
+        }
         $.post(SCRIPT_ROOT+"check",
-            JSON.stringify(vm.$data.check_data),
+            JSON.stringify({"check_data": vm.$data.check_data, "mme_command": mme_command, "saegw_command": saegw_command}),
             function(msg) {
                 vm.$data.check_result = msg.result;
                 vm.$data.current_log = msg.zipfile;
                 vm.$data.loading = false; });
     }
 });
+
